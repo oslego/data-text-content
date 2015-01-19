@@ -23,11 +23,11 @@ For use in CSS as content for pseduo-elements with `content: attr(data-text-cont
 
 ## Usage
 
-1. Load the JavaScript component
+1.  Load the JavaScript component
 ```html
 <script src="data-text-content.js"></script>
 ```
--  Set the `data-text-content` attribute on target elements
+2.  Set the `data-text-content` attribute on target elements
 ```html
 <p data-text-content>Reflect this</p>
 ```
