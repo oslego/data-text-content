@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>data-text-content.js Example</title>
+  <style>
+    p[data-text-content]::after{
+      color: red;
+      content: attr(data-text-content);
+    }
+
+  </style>
+</head>
+<body>
+  <h1>data-text-content</h1>
+  <h2>Example</h2>
+
+  <p data-text-content>Foo</p>
+  <p data-text-content>Bar</p>
+
+  <script>
+
+  (function(){
+    // helpers
+    var qsa = document.querySelectorAll.bind(document);
+
+    // TODO: find out why contenteditable doesn't trigger MutationObserver
+    var mo = new MutationObserver(function(mutations){
+      mutations.forEach(function(mutation) {
+        mutation.target.setAttribute('data-text-content', mutation.target.textContent)
+      });
+    });
+
+    var elements = Array.prototype.slice.call(qsa('[data-text-content]'));
+
+    elements.forEach(function(el){
+      el.setAttribute('data-text-content', el.textContent);
+      mo.observe(el, { childList: true, characterData: true });
+    });
+
+    setTimeout(function(){
+      elements.forEach(function(el){ el.textContent += " test" })
+    }, 500);
+
+  })()
+
+  </script>
+</body>
+</html>
