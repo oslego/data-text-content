@@ -4,46 +4,32 @@
   <meta charset="UTF-8">
   <title>data-text-content.js Example</title>
   <style>
-    p[data-text-content]::after{
-      color: red;
+
+    /* create reflection effect */
+    p::after{
+      display: block;
       content: attr(data-text-content);
+
+      -webkit-transform: rotateX(180deg);
+         -moz-transform: rotateX(180deg);
+          -ms-transform: rotateX(180deg);
+           -o-transform: rotateX(180deg);
+              transform: rotateX(180deg);
     }
 
   </style>
 </head>
 <body>
-  <h1>data-text-content</h1>
-  <h2>Example</h2>
+  <h1>Example of <code>data-text-content.js</code></h1>
+  <p>
+    Sync an element's text content to an attribute on itself called <code>data-text-content</code>. For use in CSS as content for pseudo-elements.
+  </p>
 
-  <p data-text-content>Foo</p>
-  <p data-text-content>Bar</p>
+  <h2>Demo</h2>
+  <p data-text-content>
+    This content is reflected below.
+  </p>
 
-  <script>
-
-  (function(){
-    // helpers
-    var qsa = document.querySelectorAll.bind(document);
-
-    // TODO: find out why contenteditable doesn't trigger MutationObserver
-    var mo = new MutationObserver(function(mutations){
-      mutations.forEach(function(mutation) {
-        mutation.target.setAttribute('data-text-content', mutation.target.textContent)
-      });
-    });
-
-    var elements = Array.prototype.slice.call(qsa('[data-text-content]'));
-
-    elements.forEach(function(el){
-      el.setAttribute('data-text-content', el.textContent);
-      mo.observe(el, { childList: true, characterData: true });
-    });
-
-    setTimeout(function(){
-      elements.forEach(function(el){ el.textContent += " test" })
-    }, 500);
-
-  })()
-
-  </script>
+  <script src="data-text-content.js"></script>
 </body>
 </html>
